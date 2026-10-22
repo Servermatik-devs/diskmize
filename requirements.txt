@@ -1,0 +1,4 @@
+# Production dependencies for DiskMize
+# Source of truth: pyproject.toml
+Pillow>=10.0,<11.0
+ttkthemes>=3.0.0

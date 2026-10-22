@@ -1,0 +1,4 @@
+include LICENSE
+include THIRD_PARTY_NOTICES
+recursive-include THIRD_PARTY_LICENSES *
+recursive-include src/diskmize/_licenses *

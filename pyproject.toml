@@ -1,0 +1,79 @@
+[build-system]
+requires = ["setuptools>=61", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "diskmize"
+version = "0.1.0"
+description = "Desktop disk-usage analyzer built with Python and Tkinter"
+readme = "README.md"
+license = "GPL-3.0-or-later"
+license-files = ["LICENSE", "THIRD_PARTY_LICENSES/**"]
+requires-python = ">=3.12"
+dependencies = [
+    "Pillow>=10.0,<11.0",
+    "ttkthemes>=3.0.0",
+]
+authors = [{ name = "Mario Ramos", email = "diskmize@marioramos.me" }]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: End Users/Desktop",
+    "Operating System :: POSIX :: Linux",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: System :: Filesystem Monitoring",
+    "Topic :: Utilities",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/marrionesa/diskmize"
+"Bug Tracker" = "https://github.com/marrionesa/diskmize/issues"
+"Documentation" = "https://github.com/marrionesa/diskmize/tree/main/docs"
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0",
+    "pytest-cov>=5.0",
+    "ruff>=0.6",
+    "mypy>=1.0",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.ruff]
+target-version = "py312"
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "W", "N"]
+ignore = ["E501"]  # Allow long docstrings and URLs
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+markers = [
+    "unit: tests that can run without GUI",
+    "gui: tests that require DISPLAY or Xvfb",
+    "slow: tests that take >10s to complete",
+]
+
+[tool.coverage.run]
+source = ["src/diskmize"]
+branch = true
+
+[tool.coverage.report]
+exclude_lines = [
+    "if __name__ == .__main__.:",
+    "pragma: no cover",
+    "raise NotImplementedError",
+]
+
+[tool.mypy]
+python_version = "3.12"
+warn_return_any = true
+warn_unused_configs = true
+
+
+[tool.setuptools.package-data]
+diskmize = ["_licenses/THIRD_PARTY_NOTICES", "_licenses/THIRD_PARTY_LICENSES/**/*", "_licenses/THIRD_PARTY_LICENSES/*"]

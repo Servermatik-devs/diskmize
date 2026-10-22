@@ -1,0 +1,49 @@
+# DiskMize — Third-Party Notices
+
+DiskMize is distributed under GPL-3.0-or-later.
+See the project's LICENSE file for the terms applicable to DiskMize.
+
+These notices identify third-party dependencies and assets. A dependency's
+overall license declaration does not replace license terms or notices that
+apply to individual bundled themes, images, or other resources.
+
+## Pillow 10.4.0
+
+Purpose: image handling.
+Declared license: HPND (Historical Permission Notice and Disclaimer).
+License text: THIRD_PARTY_LICENSES/Pillow/LICENSE
+
+## ttkthemes 3.3.0
+
+Purpose: themed Tk widgets and theme assets.
+Package license expression: GPL-3.0-or-later.
+Project: https://github.com/TkinterEP/ttkthemes
+
+The upstream project contains resources with differing license terms,
+including GPL, LGPL, and BSD-like Tcl licenses. Some Adapta image resources
+have their own license terms. Do not assume every individual asset has
+identical terms.
+
+Preserved license texts are located under:
+THIRD_PARTY_LICENSES/ttkthemes/
+
+That directory contains the license files collected from the installed
+ttkthemes 3.3.0 package. Preserve the applicable copyright and license
+notices when redistributing these resources. Review the relevant license
+before modifying or redistributing an individual asset.
+
+## Development dependencies
+
+pytest, pytest-cov, Ruff, mypy, build, setuptools and wheel are development
+or build tools. They are not runtime dependencies declared for DiskMize.
+If any are bundled into a release, review and include their applicable
+notices as well.
+
+## Release checklist
+
+- Verify dependency versions against the actual release environment.
+- Preserve the original third-party license texts and copyright notices.
+- Review the license for each third-party theme or asset redistributed.
+- Include these notices and applicable license texts in release artifacts.
+- Check the contents of the actual desktop installer separately from the
+  Python wheel and source distribution.
