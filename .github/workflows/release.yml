@@ -1,0 +1,60 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    name: Build and publish release
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install Linux build dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y python3-tk tk-dev tcl-dev
+
+      - name: Install project and build tools
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install ".[dev]" build pyinstaller
+
+      - name: Run tests and lint
+        run: |
+          pytest
+          ruff check .
+          ruff format --check .
+
+      - name: Build Python distributions
+        run: python -m build
+
+      - name: Build Linux executable
+        run: pyinstaller --noconfirm --clean scripts/diskmize.spec
+
+      - name: Package Linux executable
+        run: tar -czf dist/DiskMize-linux-x86_64.tar.gz -C dist DiskMize
+
+      - name: Publish GitHub Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "${GITHUB_REF_NAME}" \
+            dist/DiskMize-linux-x86_64.tar.gz \
+            dist/diskmize-*.whl \
+            dist/diskmize-*.tar.gz \
+            --title "DiskMize ${GITHUB_REF_NAME}" \
+            --generate-notes
